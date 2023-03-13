@@ -1,16 +1,15 @@
 // Done Reviewing
 import type {AppProps} from "next/app"
-import {Fragment} from "react"
-import {Footer, HeaderFilter, Navbar} from "../components"
+import {Footer, Navbar} from "../components"
+import {AuthProvider} from "../stores/auth"
 import "../styles/globals.css"
 
 export default function MyApp({Component, pageProps}: AppProps) {
   return (
-    <Fragment>
+    <AuthProvider>
       <Navbar />
-      <HeaderFilter />
       <Component {...pageProps} />
       <Footer />
-    </Fragment>
+    </AuthProvider>
   )
 }

@@ -3,9 +3,10 @@ import {ExclamationCircleIcon} from "@heroicons/react/24/outline"
 import {ChevronRightIcon} from "@heroicons/react/24/solid"
 import Image from "next/image"
 import Link from "next/link"
-import {Fragment} from "react"
-import {Category, Course, Header, Section} from "../components"
+import {Fragment, useContext} from "react"
+import {Category, Course, Header, HeaderFilter, Section} from "../components"
 import {events, features} from "../data/home"
+import {Auth} from "../stores/auth"
 
 // Done Reviewing
 export const TutorWithJINN = function TutorWithJINN() {
@@ -92,9 +93,11 @@ export const LearnWithJINN = function LearnWithJINN() {
 }
 
 export default function IndexPage() {
+  const auth = useContext(Auth)
   return (
     <Fragment>
       <Header />
+      <HeaderFilter />
       <Section
         title={
           <Fragment>
@@ -140,8 +143,12 @@ export default function IndexPage() {
           ))}
         </ul>
       </Section>
-      <TutorWithJINN />
-      <LearnWithJINN />
+      {!auth?.user ? (
+        <Fragment>
+          <TutorWithJINN />
+          <LearnWithJINN />
+        </Fragment>
+      ) : null}
     </Fragment>
   )
 }
